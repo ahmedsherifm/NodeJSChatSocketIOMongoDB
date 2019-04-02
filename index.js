@@ -29,8 +29,10 @@ app.set("view engine", "ejs");
 app.set("views", "templates");
 app.set('views', path.join(__dirname, "views"));
 
+var dbusername = "foreverdontcare";
+var dbpassword = encodeURIComponent("User61559925#$");
 // connect to mongodb and create chat db if it doesn't exists
-mongoose.connect("mongodb+srv://foreverdontcare:User61559925#$@chat-qoelz.mongodb.net/test?retryWrites=true", {
+mongoose.connect(`mongodb+srv://${dbusername}:${dbpassword}@chat-qoelz.mongodb.net/test?retryWrites=true`, {
     useNewUrlParser: true
 });
 
@@ -43,6 +45,8 @@ var userSchema = new chatSchema({
 
 var User = mongoose.model("user", userSchema);
 var db = mongoose.connection;
+
+// console.log(db);
 
 db.on("error", function (err) {
     console.log(err);
