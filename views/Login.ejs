@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--user-scalable=no-->
+    <!-- The above 3 meta tags *must* come first in the head; 
+         any other head content must come *after* these tags -->
+    <title>Chat - Login</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/public/css/style.css" type="text/css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-8 offset-2">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>Login</h2>
+                    </div>
+                </div>
+                <hr>
+                <div class="alert alert-danger d-none"><%=Error%></div>
+                <div class="row">
+                    <div class="col-12">
+                        <form action="/Login" method="post" class="form">
+                            <label for="handle">Handle: </label>
+                            <input type="text" name="handle" id="handle" class="form-control" required>
+                            <br>
+                            <label for="password">Password: </label>
+                            <input type="password" name="password" id="password" class="form-control" required>
+                            <br>
+                            <button type="submit" class="btn btn-success">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="/public/js/chat.js"></script>
+</body>
+
+</html>
