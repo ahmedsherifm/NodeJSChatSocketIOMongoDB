@@ -30,7 +30,7 @@ app.set("views", "templates");
 app.set('views', path.join(__dirname, "views"));
 
 // connect to mongodb and create chat db if it doesn't exists
-mongoose.connect("mongodb://localhost:27017/chat", {
+mongoose.connect("mongodb+srv://foreverdontcare:User61559925#$@chat-qoelz.mongodb.net/test?retryWrites=true", {
     useNewUrlParser: true
 });
 

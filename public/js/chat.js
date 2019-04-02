@@ -1,6 +1,6 @@
 // make socket connection
 // this will fire the connection event we made on the server
-var socket = io.connect("http://localhost:4001");
+var socket = io.connect("https://nodejschatsdsocketwithdb.herokuapp.com");
 
 // Emit events to the server
 $("#send").on("click",function(){
