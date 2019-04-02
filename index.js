@@ -32,7 +32,7 @@ app.set('views', path.join(__dirname, "views"));
 var dbusername = "foreverdontcare";
 var dbpassword = encodeURIComponent("User61559925#$");
 // connect to mongodb and create chat db if it doesn't exists
-mongoose.connect(`mongodb+srv://${dbusername}:${dbpassword}@chat-qoelz.mongodb.net/test?retryWrites=true`, {
+mongoose.connect(`mongodb+srv://${dbusername}:${dbpassword}@chat-qoelz.mongodb.net/chat?retryWrites=true`, {
     useNewUrlParser: true
 });
 
