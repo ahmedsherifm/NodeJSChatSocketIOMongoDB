@@ -53,15 +53,15 @@ db.once("open", function () {
     console.log("DB Connected");
 
     app.get("/", (req, res) => {
-        res.render("Login");
+        res.render("Login",{Error:""});
     });
 
     app.get("/Login", (req, res) => {
-        res.render("Login");
+        res.render("Login",{Error:""});
     });
 
     app.get("/Register", (req, res) => {
-        res.render("Register");
+        res.render("Register",{Error:""});
     });
 
     app.post("/Register", (req, res) => {
@@ -111,7 +111,7 @@ db.once("open", function () {
                 });
             } else {
                 res.render("Login", {
-                    Error: "Handle or/and Password is Incorrect"
+                    Error: "Invalid Handle / Password pair"
                 });
             }
         });
