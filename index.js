@@ -25,12 +25,14 @@ app.use(bodyParser.urlencoded({
 }));
 
 // use ejs template
-app.set("view engine","ejs");
-app.set("views","templates");
+app.set("view engine", "ejs");
+app.set("views", "templates");
 app.set('views', path.join(__dirname, "views"));
 
 // connect to mongodb and create chat db if it doesn't exists
-mongoose.connect("mongodb://localhost:27017/chat",{ useNewUrlParser: true });
+mongoose.connect("mongodb://localhost:27017/chat", {
+    useNewUrlParser: true
+});
 
 var chatSchema = mongoose.Schema;
 
@@ -50,43 +52,67 @@ db.on("error", function (err) {
 db.once("open", function () {
     console.log("DB Connected");
 
-    app.get("/",(req,res)=>{
+    app.get("/", (req, res) => {
         res.render("Login");
     });
 
-    app.get("/Login",(req,res)=>{
+    app.get("/Login", (req, res) => {
         res.render("Login");
     });
 
-    app.get("/Register",(req,res)=>{
+    app.get("/Register", (req, res) => {
         res.render("Register");
     });
 
-    app.post("/Register",(req,res)=>{
+    app.post("/Register", (req, res) => {
         var formData = req.body;
         var newUser = User({
-            Handle:formData.handle,
-            Password:formData.password
+            Handle: formData.handle,
+            Password: formData.password
         });
 
-        newUser.save((err)=>{
-            if(err) throw err;
+        // check if the user already exists so we don't register new one
+        User.count({
+            Handle: formData.handle
+        }, function (err, count) {
+            // if already exists we return an Error message to the user else register the user and redirect him to the chat room
+            if (count > 0) {
+                res.render("Register", {
+                    Error: `this ${formData.handle} already exists`
+                });
+            } 
+            else {
+                newUser.save((err) => {
+                    if (err) throw err;
 
-            console.log("Person Saved !");
+                    console.log("Person Saved !");
+                });
+
+                // res.redirect("/ChatRoom");
+                res.render("ChatRoom", {
+                    Handle: formData.handle
+                });
+            }
         });
 
-        res.render("ChatRoom",{Handle:formData.handle});
     });
 
-    app.post("/Login",function(req,res){
+    app.post("/Login", function (req, res) {
         var formData = req.body;
         // here I used count to check if the entered user is in the system
-        User.count({Handle:formData.handle,Password:formData.password},function(err,count){
-            if(count > 0){
-                res.render("ChatRoom",{Handle:formData.handle});
-            }
-            else{
-                res.render("Login",{Error:"Handle or/and Password is Incorrect"})
+        User.count({
+            Handle: formData.handle,
+            Password: formData.password
+        }, function (err, count) {
+            if (count > 0) {
+                // res.redirect("/ChatRoom");
+                res.render("ChatRoom", {
+                    Handle: formData.handle
+                });
+            } else {
+                res.render("Login", {
+                    Error: "Handle or/and Password is Incorrect"
+                });
             }
         });
     });
